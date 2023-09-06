@@ -16,8 +16,9 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">NAME</th>
+                <th scope="col">NOME</th>
                 <th scope="col">SLUG</th>
+                <th scope="col">TIPO</th>
                 <th scope="col">CREATO IL</th>
                 <th scope="col" colspan="3">ULTIMA MODIFICA</th>
             </tr>
@@ -28,6 +29,8 @@
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->name }}</td>
                     <td>{{ $project->slug }}</td>
+                    <td>{{ $project->type?->label }}</td>
+
                     <td>{{ $project->created_at }}</td>
                     <td>{{ $project->updated_at }}</td>
                     <td>
