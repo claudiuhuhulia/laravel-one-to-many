@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -28,8 +29,9 @@ class ProjectController extends Controller
     {
 
         $project = new Project();
+        $types = Type::all();
 
-        return view('admin.projects.create', compact('project'));
+        return view('admin.projects.create', compact('project', 'types'));
     }
 
     /**
@@ -40,7 +42,8 @@ class ProjectController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:50', 'unique:projects'],
             'image' => 'nullable|image:jpg,jpeg,png',
-            'content' => 'required|string'
+            'content' => 'required|string',
+            'type_id' => 'nullable|exists:types,id'
 
         ], [
             'name.required' => 'Il nome è obbligatorio',
@@ -48,6 +51,7 @@ class ProjectController extends Controller
             'name.unique' => "Esiste già un progetto dal titolo $request->name",
             'content.required' => 'non può esistere un progetto senza contenuto',
             'image.image' => "Il file caricato non è valido",
+            'type_id.exists' => 'La categoria indicata è inesistente'
         ]);
         $data = $request->all();
 
@@ -79,8 +83,11 @@ class ProjectController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Project $project)
+
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**

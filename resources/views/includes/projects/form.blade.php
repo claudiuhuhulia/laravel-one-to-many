@@ -40,7 +40,21 @@
             @enderror
         </div>
     </div>
-    <div class="col-11">
+    <div class="col-6">
+        <div class="mb-3 ">
+            <label class="form-label" for="type">Tipo</label>
+            <select
+                class=" form-select form-select @error('type') is-invalid  @elseif(old('type')) is-valid @enderror"
+                id="type" name="type_id">
+                <option value="1">Nessuna</option>
+                @foreach ($types as $type)
+                    <option @if (old('type_id') == $type->id) selected @endif value="{{ $type->id }}">
+                        {{ $type->label }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="col-5">
         <div class="mb-3">
             <label for="image" class="form-label">Url dell'immagine</label>
             <input type="file"
