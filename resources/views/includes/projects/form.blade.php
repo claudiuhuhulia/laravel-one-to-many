@@ -48,7 +48,7 @@
                 id="type" name="type_id">
                 <option value="1">Nessuna</option>
                 @foreach ($types as $type)
-                    <option @if (old('type_id') == $type->id) selected @endif value="{{ $type->id }}">
+                    <option @if (old('type_id', $project->type_id) == $type->id) selected @endif value="{{ $type->id }}">
                         {{ $type->label }}</option>
                 @endforeach
             </select>
